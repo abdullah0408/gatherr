@@ -61,8 +61,8 @@ export async function POST(req: Request) {
   const user = evt.data as UserJSON;
   const email = user.email_addresses[0]?.email_address || "No email provided";
   const username = user.username || email;
-  const firstName = user.first_name || null;
-  const lastName = user.last_name || null;
+  const firstName = user.first_name || "";
+  const lastName = user.last_name || "";
   const name = `${firstName} ${lastName}`.trim() || username;
   const profilePicture = user.image_url || "No image URL provided";
   const birthday = user.birthday || "Not provided";
