@@ -17,6 +17,8 @@ model User {
   id             String   @id
   username       String   @unique
   email          String   @unique
+  firstName      String?
+  lastName       String?
   name           String?
   profilePicture String?
   bio            String?
@@ -25,7 +27,6 @@ model User {
   externalId     String?
   clientIp       String?
   userAgent      String?
-  
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   
