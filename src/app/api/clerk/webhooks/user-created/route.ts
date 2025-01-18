@@ -1,58 +1,3 @@
-// import { Webhook } from "svix"
-// import { headers } from "next/headers"
-// import { WebhookEvent } from "@clerk/nextjs/server"
-// import prisma from "@/lib/prisma"
-// import { Prisma } from "@prisma/client"
-
-// interface UserJSON {
-//     username: string | null;
-//     first_name: string | null;
-//     last_name: string | null;
-//     image_url: string;
-//     email_addresses: {
-//         email_address: string;
-//     }[];
-// }
-// export async function POST(req: Request) {
-
-//     if (!evt.data) {
-//         return new Response("No event data found", { status: 400 })
-//     }
-
-//     const id: string = evt.data.id!
-//     const email: string = (evt.data as UserJSON).email_addresses[0].email_address
-//     const eventType = evt.type
-//     const username = (evt.data as UserJSON).username || email
-//     const firstName = (evt.data as UserJSON).first_name
-//     const lastName = (evt.data as UserJSON).last_name
-//     const name = (`${firstName ?? ''} ${lastName ?? ''}`).trim() || username;
-//     const profilePicture = (evt.data as UserJSON).image_url
-
-//     if (eventType === "user.created") {
-//         try {
-//             if (!email || !id || !username) {
-//                 return new Response("Missing required data for user creation", { status: 400 })
-//             }
-
-//             const newUser = await prisma.user.create({
-//                 data: {
-//                     id,
-//                     email,
-//                     name: name,
-//                     username: username,
-//                     profilePicture,
-//                 } as unknown as Prisma.UserCreateInput
-//             });
-
-//             console.log("new user created", newUser)
-//         } catch (error) {
-//             console.error("error creating user", error)
-//             return new Response("Error creating user: ", { status: 500 })
-//         }
-//     }
-//     return new Response("Webhook received", { status: 200 })
-// }
-
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
@@ -116,8 +61,8 @@ export async function POST(req: Request) {
   const user = evt.data as UserJSON;
   const email = user.email_addresses[0]?.email_address || "No email provided";
   const username = user.username || email;
-  const firstName = user.first_name || "Unknown";
-  const lastName = user.last_name || "Unknown";
+  const firstName = user.first_name || null;
+  const lastName = user.last_name || null;
   const name = `${firstName} ${lastName}`.trim() || username;
   const profilePicture = user.image_url || "No image URL provided";
   const birthday = user.birthday || "Not provided";
