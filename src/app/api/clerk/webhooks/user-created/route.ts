@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { UserJSON as DefaultUserJSON } from "@clerk/nextjs/server";
+import prisma from "@/lib/prisma";
 
 interface UserJSON extends DefaultUserJSON {
   birthday: string | null;
@@ -53,11 +54,9 @@ export async function POST(req: Request) {
     });
   }
 
-  // Do something with payload
-  // For this guide, log payload to console
-
   // Extract user data
   const { id } = evt.data;
+  const eventType = evt.type;
   const user = evt.data as UserJSON;
   const email = user.email_addresses[0]?.email_address || "No email provided";
   const username = user.username || email;
@@ -66,37 +65,42 @@ export async function POST(req: Request) {
   const name = `${firstName} ${lastName}`.trim() || username;
   const profilePicture = user.image_url || "No image URL provided";
   const birthday = user.birthday || "Not provided";
-  const createdAt = user.created_at || "Unknown";
   const gender = user.gender || "Not provided";
   const externalId = user.external_id || "Not provided";
-  const lastSignInAt = user.last_sign_in_at;
 
   // Extract event attributes
   const eventAttributes = payload.event_attributes || {};
   const clientIp = eventAttributes.http_request?.client_ip || "Unknown IP";
-  const userAgent = eventAttributes.http_request?.user_agent || "Unknown User-Agent";
+  const userAgent =
+    eventAttributes.http_request?.user_agent || "Unknown User-Agent";
 
-  console.log("User Information:");
-  console.log(`- ID: ${id}`);
-  console.log(`- Email: ${email}`);
-  console.log(`- Username: ${username}`);
-  console.log(`- Name: ${name}`);
-  console.log(`- Profile Picture: ${profilePicture}`);
-  console.log(`- Birthday: ${birthday}`);
-  console.log(`- Created At: ${createdAt}`);
-  console.log(`- Gender: ${gender}`);
-  console.log(`- External ID: ${externalId}`);
-  console.log(
-    `- Last Sign-In At: ${lastSignInAt ? new Date(lastSignInAt).toISOString() : "Unknown"}`,
-  );
+  if (eventType === "user.created") {
+    try {
+      if (!email || !id || !username) {
+        return new Response("Missing required data for user creation", {
+          status: 400,
+        });
+      }
 
-  console.log("Event Attributes:");
-  console.log(`- Client IP: ${clientIp}`);
-  console.log(`- User-Agent: ${userAgent}`);
-
-  const eventType = evt.type;
-  console.log(`Received webhook with ID ${id} and event type of ${eventType}`);
-  console.log("Webhook payload:", body);
-
+      const newUser = await prisma.user.create({
+        data: {
+          id,
+          email,
+          username,
+          firstName,
+          lastName,
+          name,
+          profilePicture,
+          birthday,
+          gender,
+          externalId,
+          clientIp,
+          userAgent,
+        },
+      });
+    } catch (error) {
+      return new Response(`Error creating user: ${error}`, { status: 500 });
+    }
+  }
   return new Response("Webhook received", { status: 200 });
 }
