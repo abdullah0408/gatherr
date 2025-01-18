@@ -6,7 +6,6 @@ const SignOut = () => {
 
   const handleLogout = async () => {
     await signOut();
-    // Optionally redirect or handle post-logout actions
     window.location.href = "/";
   };
 
