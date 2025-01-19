@@ -43,7 +43,7 @@ export default function SignUpPage() {
                 <Clerk.Input asChild>
                   <Input required />
                 </Clerk.Input>
-                <Clerk.FieldError />
+                <Clerk.FieldError className="text-red-600 text-sm italic" />
               </Clerk.Field>
               <Clerk.Field name="emailAddress">
                 <Clerk.Label asChild>
@@ -65,7 +65,7 @@ export default function SignUpPage() {
                 <Clerk.Input asChild>
                   <Input required />
                 </Clerk.Input>
-                <Clerk.FieldError />
+                <Clerk.FieldError className="text-red-600 text-sm italic" />
               </Clerk.Field>
             </div>
             <SignUp.Action submit asChild>
@@ -83,7 +83,7 @@ export default function SignUpPage() {
                 <Clerk.Input asChild>
                   <Input required />
                 </Clerk.Input>
-                <Clerk.FieldError />
+                <Clerk.FieldError className="text-red-600 text-sm italic" />
               </Clerk.Field>
             </div>
             <SignUp.Action submit asChild>
