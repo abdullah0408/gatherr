@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useAuth } from "./auth"; // Make sure the path is correct
+import { useAuth } from "../hooks/useAuth"; // Make sure the path is correct
 
 import { Button } from "@/components/ui/button";
 import {
