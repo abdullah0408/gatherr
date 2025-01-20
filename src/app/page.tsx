@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SignOut from '../components/SignOut';
+import Link from "next/link";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -60,6 +61,7 @@ export default function Home() {
       ) : (
         <p>Loading user details...</p>
       )}
+      <Link href="/hello">Hello</Link>
     </>
   );
 }
