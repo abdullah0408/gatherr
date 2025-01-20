@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: {
-    staleTimes: { dynamic: 30 }, // This experimental feature allows dynamic content to be cached for 30 seconds before it's considered stale and fetched again.
+    staleTimes: { dynamic: 30 },
   },
   images: {
-    domains: ["*"], // Allow images from all external domains
+    domains: ["img.clerk.com"], // Allow images from img.clerk.com only
   },
 };
 
