@@ -10,7 +10,7 @@ const Navbar = () => {
         Gather
         </Link>
         <SearchField/>
-        <UserButton className="sm:ms-auto"/>
+        <UserButton className="sm:ms-auto hidden sm:block"/>
       </div>
     </header>
   )

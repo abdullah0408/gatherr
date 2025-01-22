@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Bell, Bookmark, Home, Mail } from "lucide-react";
+import UserButton from "../UserButton";
 interface MenuBarProps {
     className?: string;
 }
@@ -27,6 +28,7 @@ const MenuBar = ({className}: MenuBarProps) => {
             <span className="hidden lg:inline">Notifications</span>
             </Link>
         </Button>
+        <UserButton className="sm:hidden"/>
         <Button
         variant={"ghost"}
         className="flex items-center justify-start gap-3"
