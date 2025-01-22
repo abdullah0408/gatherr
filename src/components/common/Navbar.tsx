@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import UserButton from './UserButton'
-import SearchField from '@/components/common/SearchField'
+import UserButton from '../UserButton'
+import SearchField from '@/components/SearchField'
 const Navbar = () => {
   return (
     <header className='sticky top-0 z-10 bg-card shadow-sm'>
