@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuSubContent,
-} from "../ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 import UserProfilePicture from "./UserProfilePicture";
 import { Monitor, User } from "lucide-react";
 import Link from "next/link";
