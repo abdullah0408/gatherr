@@ -1,19 +1,38 @@
-import React from "react";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import { Loader2 } from "lucide-react";
-import FriendSuggesstions from "../FriendSuggesstions";
+import FriendSuggestions from "../FriendSuggesstions"
+import TrendingTopics from "../TrendingTopics";
 
 const DiscoverSidebar = () => {
   return (
-    // <div className="sticky top-[5.25] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
+    <>
+      <style>
+        {`
+          /* Hides the scrollbar across browsers */
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
 
-    // <MenuBar className=""/>
-    <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none rounded-xl space-y-5 bg-card shadow-sm md:block lg:w-80">
-      <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-        <FriendSuggesstions />
-        {/* <TrendingTopics /> */}
-      </Suspense>
-    </div>
+          .scrollbar-hide {
+            -ms-overflow-style: none; /* For IE and Edge */
+            scrollbar-width: none;    /* For Firefox */
+          }
+        `}
+      </style>
+      <div className="h-screen sticky top-[5.25rem] rounded-xl hidden w-72 flex-none space-y-5 shadow-sm overflow-y-auto scrollbar-hide md:block lg:w-80">
+        <div className="bg-card rounded-xl">
+          <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+            <FriendSuggestions />
+          </Suspense>
+        </div>
+        
+        <div className="bg-card rounded-xl">
+          <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
+            <TrendingTopics />
+          </Suspense>
+        </div>
+      </div>
+    </>
   );
 };
 

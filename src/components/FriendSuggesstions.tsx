@@ -4,7 +4,7 @@ import UserProfilePicture from "./UserProfilePicture";
 import getFriendSuggestions from "@/lib/getFriendSuggestions";
 
 const FriendSuggesstions = async () => {
-    const toFollow = await getFriendSuggestions(5);
+    const toFollow = await getFriendSuggestions(4);
 
     return (
         <div className="space-y-5 rounded-2xl bg-card p-5 shadow-sm">

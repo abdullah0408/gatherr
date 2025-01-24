@@ -1,11 +1,11 @@
-// import { PostData } from "@/lib/types";
+import { PostData } from "@/lib/types";
 import UserProfilePicture from "@/components/UserProfilePicture";
 import Link from "next/link";
-// import { formatRelativeTime } from "@/lib/utils";
-// interface PostProps {
-//     post: PostData;
-// }
-const Post = ({ post }: any) => {
+import { formatRelativeTime } from "@/lib/utils";
+interface PostProps {
+    post: PostData;
+}
+const Post = ({ post }: PostProps) => {
   return (
     <article className="space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex flex-wrap gap-3">
@@ -17,7 +17,7 @@ const Post = ({ post }: any) => {
             {post.author.name}
           </Link>
           <Link href={`/posts/${post.id}`} className="block text-sm text-muted-foreground hover:underline">
-          {/* {formatRelativeTime(post.createdAt)} */}
+          {formatRelativeTime(post.createdAt)}
           </Link>
         </div>
       </div>
