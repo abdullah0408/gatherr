@@ -5,7 +5,7 @@ import Placeholder from "@tiptap/extension-placeholder"
 import { Button } from "@/components/ui/button"
 import "./styles.css"
 import UserProfilePicture from "@/components/UserProfilePicture"
-import submitPost from "./actions"
+import submitPost from "@/lib/submitPost"
 import { useAuth } from "@/hooks/useAuth";
 
 
