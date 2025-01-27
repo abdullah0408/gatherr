@@ -1,15 +1,12 @@
 import Post from "@/components/Post";
 import PostEditor from "@/components/PostEditor";
-import getFeedPosts from "@/lib/getFeedPosts";
+import PublicFeed from "@/components/common/PublicFeed";
 async function RenderPosts() {
-  const posts = await getFeedPosts();
 
   return (
     <div className="w-full min-w-0 space-y-5">
       <PostEditor />
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
+      <PublicFeed /> 
     </div>
   );
 }

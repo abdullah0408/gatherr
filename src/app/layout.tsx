@@ -4,6 +4,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
+import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+          <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -38,7 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
-          </ThemeProvider>
+          </ThemeProvider></ReactQueryProvider>
           <Toaster />
         </body>
       </html>
