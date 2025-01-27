@@ -7,12 +7,14 @@ import "./styles.css"
 import UserProfilePicture from "@/components/UserProfilePicture"
 import submitPost from "@/lib/submitPost"
 import { useAuth } from "@/hooks/useAuth";
-
+import { useSubmitPostMutation } from "@/lib/mutations";
+import LoadingButton from "@/components/LoadingButton";
 
 const PostEditor = () => {
     
   const { userDetails } = useAuth();
 
+  const mutation = useSubmitPostMutation();
   const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -30,8 +32,11 @@ const PostEditor = () => {
     }) || ""
 
     async function onSubmit() {
-        await submitPost(input)
-        editor?.commands.clearContent()
+        mutation.mutate(input, {
+            onSuccess: () => {
+                editor?.commands.clearContent()
+            }
+        })
     }
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
@@ -44,12 +49,13 @@ const PostEditor = () => {
         />
         </div>
         <div className="flex justify-end">
-            <Button onClick={onSubmit}
+            <LoadingButton onClick={onSubmit}
+            loading={mutation.isPending}
             disabled={!input.trim()}
             className="min-w-20"
             >
                 Post
-            </Button>
+            </LoadingButton>
         </div>
     </div>
   )

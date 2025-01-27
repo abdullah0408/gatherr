@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { createPostSchema } from "@/lib/validations";
+import { postDataInclude } from "./types";
 
 const submitPost = async (input: string) => {
   const { userId } = await auth();
@@ -14,12 +15,15 @@ const submitPost = async (input: string) => {
   const { content } = createPostSchema.parse({ content: input });
 
   try {
-    await prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         content: content,
         authorId: userId,
       },
+      include: postDataInclude
     });
+
+    return newPost;
   } catch (error) {
     console.error("Error creating post:", error);
     throw new Error("Failed to create post");
